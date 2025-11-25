@@ -11,7 +11,7 @@
             <nav class="main-nav">
                 <a href="index.php">Home</a>
                 <a href="about.php">About</a>
-                <a href="https://github.com/yourusername/globalfines" target="_blank" rel="noopener noreferrer">Join the Project</a>
+                <a href="https://github.com/dpfines" target="_blank" rel="noopener noreferrer">Join the Project</a>
             </nav>
 
          
