@@ -26,10 +26,7 @@
     <div class="mobile-menu" id="mobileMenu">
         <a href="index.php">Home</a>
         <a href="about.php">About</a>
-        <a href="https://github.com/yourusername/globalfines" target="_blank" rel="noopener noreferrer">Join the Project</a>
-        <div class="mobile-menu-actions">
-            <a href="login.php" class="btn-text">Log In</a>
-            <a href="register.php" class="btn btn-primary">Sign Up</a>
-        </div>
+        <a href="https://github.com/dpfines" target="_blank" rel="noopener noreferrer">Join the Project</a>
+      
     </div>
 </header>
