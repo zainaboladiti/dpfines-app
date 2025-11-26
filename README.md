@@ -1,64 +1,170 @@
-<<<<<<< HEAD
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Perfect! Based on your Laravel `dpfines-app` project and database structure, here’s a complete **`README.md`** ready to add to your repository. You can create a file called `README.md` in the root of your Laravel project and paste this content:
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+````markdown
+# DP Fines Laravel App
 
-## About Laravel
+A **Laravel-based web application** to track global data privacy enforcement actions.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Public users can **view fines** without logging in.  
+- Admin users can **log in** to manage fines (add/edit/delete).  
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 📌 Features
 
-## Learning Laravel
+- Display fines in a table with:
+  - Organisation
+  - Regulator
+  - Sector
+  - Fine amount & currency
+  - Date
+  - Law
+  - View Case button (links to official source)
+- Admin panel with authentication:
+  - Login/Logout
+  - CRUD operations for fines
+  - Protected routes accessible only by admins
+- Pagination for large datasets
+- Bootstrap 5 frontend styling
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## ⚙️ Requirements
 
-## Laravel Sponsors
+- PHP 8.1+  
+- Laravel 10+  
+- MySQL/MariaDB  
+- Composer  
+- Node.js & npm (optional, if compiling assets)  
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 🚀 Installation
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+1. Clone the repository:
 
-## Contributing
+```bash
+git clone https://github.com/dpfines/dpfines-app.git
+cd dpfines-app
+````
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2. Install PHP dependencies:
 
-## Code of Conduct
+```bash
+composer install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3. Copy `.env.example` to `.env`:
 
-## Security Vulnerabilities
+```bash
+cp .env.example .env
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. Set database credentials in `.env`:
 
-## License
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=dbfines
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-=======
-# dpfines-app
-Global database of data protection fines, enforcement actions, analytics, and regulatory insights. Includes admin panel, manual data entry, and scraper review workflow.
->>>>>>> d09d856dcc4d29084d7d9464d228616594576596
+5. Generate Laravel app key:
+
+```bash
+php artisan key:generate
+```
+
+6. Run migrations:
+
+```bash
+php artisan migrate
+```
+
+7. (Optional) Seed admin user:
+
+```bash
+php artisan db:seed --class=AdminSeeder
+```
+
+8. Run the local development server:
+
+```bash
+php artisan serve
+```
+
+Visit `http://127.0.0.1:8000` for the public fines page.
+Admin panel: `http://127.0.0.1:8000/admin/login`
+
+---
+
+## 🔐 Admin Login
+
+Default seeded admin account:
+
+* Email: `admin@example.com`
+* Password: `password123`
+
+> ⚠️ Change the password immediately in production.
+
+---
+
+## 💾 Adding Fines
+
+* Admin panel allows creating, editing, and deleting fines.
+* Public view displays fines with a "View Case" button linking to the official case URL (`link_to_case`).
+
+---
+
+## 💻 Tech Stack
+
+* Backend: Laravel 10
+* Frontend: Blade + Bootstrap 5
+* Database: MySQL / MariaDB
+
+---
+
+## 📂 Folder Structure
+
+```
+app/
+├─ Http/Controllers/GlobalFineController.php
+├─ Http/Controllers/AdminAuthController.php
+resources/
+├─ views/
+│  ├─ fines/ (public views)
+│  ├─ admin/ (admin panel views)
+├─ layout.blade.php
+database/
+├─ migrations/
+├─ seeders/
+```
+
+---
+
+## 🛠 Development Notes
+
+* Use `php artisan tinker` to inspect database tables.
+* Do **not commit** `.env` or `vendor/` folder.
+* Include `.env.example` for setup instructions.
+
+---
+
+## 📌 License
+
+This project is licensed under the MIT License.
+
+```
+
+---
+
+This README covers:
+
+- Project overview  
+- Features (public and admin panel)  
+- Installation instructions  
+- Admin credentials  
+- Tech stack and folder structure  
+
