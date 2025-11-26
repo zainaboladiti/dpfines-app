@@ -3,7 +3,7 @@ require_once 'config.php';
 require_once 'includes/functions.php';
 
 // Fetch latest fines
-$latestFines = getLatestFines($conn, 3);
+$latestFines = getLatestFines($conn, 10);
 
 // Fetch analytics data
 $regulatorStats = getRegulatorStats($conn);
@@ -210,7 +210,7 @@ $sectorStats = getSectorStats($conn);
                     </div>
                     <div class="feature-content">
                         <h3>Search & Filter</h3>
-                        <p>Advanced search across 12,500+ enforcement actions with powerful filtering by regulator, sector, date, and violation type</p>
+                        <p>Advanced search across 12,50 0+ enforcement actions with powerful filtering by regulator, sector, date, and violation type</p>
                     </div>
                 </div>
 
@@ -253,7 +253,6 @@ $sectorStats = getSectorStats($conn);
             <h2>Stay Ahead of Global Enforcement</h2>
             <p>Join thousands of compliance professionals who trust GlobalFines to stay informed. Sign up for alerts and full database access today.</p>
             <div class="cta-buttons">
-                <a href="register.php" class="btn btn-white">Sign Up Free</a>
                 <a href="database.php" class="btn btn-outline">Explore Database</a>
             </div>
         </div>
