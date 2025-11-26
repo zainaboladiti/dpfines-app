@@ -49,14 +49,8 @@
             </div>
         </div>
 
-        <!-- Donation Section -->
-        <div class="donation-section">
-            <h4>Support This Project</h4>
-            <p>Help us maintain and improve DP Fines. Your donations support server costs, data updates, and development.</p>
-            <a href="https://donate.stripe.com/test_yourlink" target="_blank" rel="noopener noreferrer" class="btn btn-donate">
-                <i class="fab fa-stripe"></i> Donate via Stripe
-            </a>
-        </div>
+      
     </div>
+    
 </footer>
 
