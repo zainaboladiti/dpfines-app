@@ -103,13 +103,13 @@
                         </div>
 
                         <div class="fine-amount">
-                            <div class="amount">
-                                {{ number_format($fine->fine_amount, 0) }} {{ $fine->currency }}
-                            </div>
-                            <div class="date">
-                                {{ \Carbon\Carbon::parse($fine->fine_date)->format('M Y') }}
-                            </div>
-                        </div>
+    <div class="amount">
+        {{ $fine->formatted_amount }}
+    </div>
+    <div class="date">
+        {{ \Carbon\Carbon::parse($fine->fine_date)->format('M Y') }}
+    </div>
+</div>
 
                         <div class="fine-type">
                             <span class="badge badge-red">{{ $fine->violation_type }}</span>
@@ -117,7 +117,14 @@
                         </div>
 
                         <div class="fine-summary">
-                            <p>{{ Str::limit($fine->summary, 100) }}</p>
+                            <p>
+                                @if (strlen($fine->summary) > 100)
+                                    {{ substr($fine->summary, 0, 100) }}
+                                    <a href="{{ route('fine.show', $fine->id) }}" class="more-link">more</a>
+                                @else
+                                    {{ $fine->summary }}
+                                @endif
+                            </p>
                         </div>
 
                         <div class="fine-action">
