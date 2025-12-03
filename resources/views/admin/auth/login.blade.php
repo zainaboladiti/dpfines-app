@@ -1,56 +1,83 @@
 @extends('layout')
 
 @section('content')
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0">Admin Login</h3>
-                </div>
-                <div class="card-body p-4">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul class="mb-0">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    <form method="POST" action="{{ url('/admin/login') }}" novalidate>
-                        @csrf
-
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                   id="email" name="email" value="{{ old('email') }}"
-                                   required autofocus>
-                            @error('email')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                   id="password" name="password" required>
-                            @error('password')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-100">Login</button>
-                    </form>
-
-                    <hr class="my-4">
-                    <p class="text-center text-muted mb-0">
-                        New admin? <a href="{{ url('/admin/register') }}">Register here</a>
-                    </p>
-                </div>
-            </div>
+<div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px;">
+    <div style="width: 100%; max-width: 420px;">
+        <!-- Header -->
+        <div style="text-align: center; margin-bottom: 32px; color: white;">
+            <h1 style="font-size: 28px; font-weight: 700; margin-bottom: 8px;">Admin Panel</h1>
+            <p style="font-size: 14px; opacity: 0.9;">Sign in to your account</p>
         </div>
+
+        <!-- Card -->
+        <div style="background: white; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); padding: 40px; margin-bottom: 20px;">
+            @if (session('success'))
+                <div style="background-color: #d1fae5; border: 1px solid #6ee7b7; color: #065f46; padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; font-size: 14px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div style="background-color: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; font-size: 14px;">
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
+
+            <form method="POST" action="{{ url('/admin/login') }}" novalidate>
+                @csrf
+
+                <!-- Email -->
+                <div style="margin-bottom: 20px;">
+                    <label for="email" style="display: block; font-size: 14px; font-weight: 500; color: #1f2937; margin-bottom: 8px;">Email Address</label>
+                    <input type="email"
+                           id="email"
+                           name="email"
+                           value="{{ old('email') }}"
+                           placeholder="you@example.com"
+                           style="width: 100%; padding: 10px 12px; font-size: 14px; border: 1px solid {{ $errors->has('email') ? '#dc2626' : '#d1d5db' }}; border-radius: 8px; box-sizing: border-box; font-family: inherit; transition: border-color 0.2s;"
+                           required
+                           autofocus>
+                    @if($errors->has('email'))
+                        <p style="color: #dc2626; font-size: 12px; margin-top: 4px;">{{ $errors->first('email') }}</p>
+                    @endif
+                </div>
+
+                <!-- Password -->
+                <div style="margin-bottom: 20px;">
+                    <label for="password" style="display: block; font-size: 14px; font-weight: 500; color: #1f2937; margin-bottom: 8px;">Password</label>
+                    <input type="password"
+                           id="password"
+                           name="password"
+                           placeholder="Enter your password"
+                           style="width: 100%; padding: 10px 12px; font-size: 14px; border: 1px solid {{ $errors->has('password') ? '#dc2626' : '#d1d5db' }}; border-radius: 8px; box-sizing: border-box; font-family: inherit; transition: border-color 0.2s;"
+                           required>
+                    @if($errors->has('password'))
+                        <p style="color: #dc2626; font-size: 12px; margin-top: 4px;">{{ $errors->first('password') }}</p>
+                    @endif
+                </div>
+
+                <!-- Remember & Forgot -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; font-size: 14px;">
+                    <label style="display: flex; align-items: center; color: #374151; cursor: pointer;">
+                        <input type="checkbox" name="remember" value="1" style="margin-right: 8px; cursor: pointer;">
+                        <span>Remember me</span>
+                    </label>
+                    <a href="/password/reset" style="color: #667eea; text-decoration: none; transition: color 0.2s;">Forgot password?</a>
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" style="width: 100%; padding: 10px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-size: 14px; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+                    Sign In
+                </button>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <p style="text-align: center; color: white; font-size: 14px;">
+            New admin? <a href="{{ url('/admin/register') }}" style="color: #fbbf24; text-decoration: none; font-weight: 600;">Create account</a>
+        </p>
     </div>
 </div>
 @endsection
