@@ -113,7 +113,8 @@ class AuthController extends Controller
             ]
         );
 
-        Notification::route('mail', $user->email)->notify(new AdminVerifyEmail($signedUrl));
+        Notification::route('mail', $user->email)
+            ->notify(new AdminVerifyEmail($signedUrl, $user));
 
         return redirect('/admin/login')->with('success', 'Account created. Please check your email for a verification link before logging in.');
     }

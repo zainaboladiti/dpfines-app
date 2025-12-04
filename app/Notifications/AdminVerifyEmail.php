@@ -12,9 +12,10 @@ class AdminVerifyEmail extends Notification
 
     protected $url;
 
-    public function __construct(string $url)
+    public function __construct(string $url, string $user)
     {
         $this->url = $url;
+        $this->user = $user;
     }
 
     public function via($notifiable)
@@ -26,7 +27,7 @@ class AdminVerifyEmail extends Notification
     {
         return (new MailMessage)
                     ->subject('Verify your admin account')
-                    ->greeting('Hello ' . $notifiable->name . ',')
+                    ->greeting('Hello ' . $this->user->name . ',')
                     ->line('Thank you for creating an admin account. Please verify your email address to activate your admin access.')
                     ->action('Verify Email', $this->url)
                     ->line('This verification link will expire in 60 minutes.')
