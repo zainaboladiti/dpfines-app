@@ -1,7 +1,9 @@
 @extends('layout')
 
 @section('content')
-<div class="container mt-4">
+<div class="admin-shell">
+    @include('admin._sidebar')
+    <main class="container-fluid mt-4">
     <div class="row mb-4">
         <div class="col-md-8">
             <h1>Manage Global Fines</h1>
@@ -85,5 +87,6 @@
     <div class="d-flex justify-content-center mt-4">
         {{ $fines->links() }}
     </div>
+    </main>
 </div>
 @endsection

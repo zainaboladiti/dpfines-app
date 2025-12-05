@@ -1,7 +1,9 @@
 @extends('layout')
 
 @section('content')
-<div class="container mt-4">
+<div class="admin-shell">
+    @include('admin._sidebar')
+    <main class="container-fluid mt-4">
     <div class="row mb-4">
         <div class="col-md-8">
             <h1>{{ isset($fine) ? 'Edit Fine' : 'Add New Fine' }}</h1>
@@ -33,9 +35,9 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="organisation" class="form-label">Organisation Name *</label>
-                        <input type="text" class="form-control @error('organisation') is-invalid @enderror"
+                           <input type="text" class="form-control @error('organisation') is-invalid @enderror"
                                id="organisation" name="organisation"
-                               value="{{ old('organisation', $fine->organisation ?? '') }}"
+                               value="{{ old('organisation', isset($fine) ? $fine->organisation : '') }}"
                                required minlength="3">
                         @error('organisation')
                             <span class="invalid-feedback">{{ $message }}</span>
@@ -44,9 +46,9 @@
 
                     <div class="col-md-6 mb-3">
                         <label for="regulator" class="form-label">Regulator</label>
-                        <input type="text" class="form-control @error('regulator') is-invalid @enderror"
+                           <input type="text" class="form-control @error('regulator') is-invalid @enderror"
                                id="regulator" name="regulator"
-                               value="{{ old('regulator', $fine->regulator ?? '') }}">
+                               value="{{ old('regulator', isset($fine) ? $fine->regulator : '') }}">
                         @error('regulator')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
@@ -56,9 +58,9 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="fine_amount" class="form-label">Fine Amount *</label>
-                        <input type="number" step="0.01" class="form-control @error('fine_amount') is-invalid @enderror"
+                           <input type="number" step="0.01" class="form-control @error('fine_amount') is-invalid @enderror"
                                id="fine_amount" name="fine_amount"
-                               value="{{ old('fine_amount', $fine->fine_amount ?? '') }}"
+                               value="{{ old('fine_amount', isset($fine) ? $fine->fine_amount : '') }}"
                                required min="0">
                         @error('fine_amount')
                             <span class="invalid-feedback">{{ $message }}</span>
@@ -71,8 +73,8 @@
                                 id="currency" name="currency" required>
                             <option value="">Select...</option>
                             @foreach(['EUR', 'USD', 'GBP', 'AUD', 'CAD'] as $curr)
-                                <option value="{{ $curr }}"
-                                    {{ old('currency', $fine->currency ?? 'EUR') == $curr ? 'selected' : '' }}>
+                                    <option value="{{ $curr }}"
+                                        {{ old('currency', isset($fine) ? $fine->currency : 'EUR') == $curr ? 'selected' : '' }}>
                                     {{ $curr }}
                                 </option>
                             @endforeach
@@ -84,9 +86,9 @@
 
                     <div class="col-md-6 mb-3">
                         <label for="fine_date" class="form-label">Fine Date *</label>
-                        <input type="date" class="form-control @error('fine_date') is-invalid @enderror"
+                           <input type="date" class="form-control @error('fine_date') is-invalid @enderror"
                                id="fine_date" name="fine_date"
-                               value="{{ old('fine_date', $fine->fine_date?->format('Y-m-d') ?? '') }}"
+                               value="{{ old('fine_date', isset($fine) && $fine->fine_date ? $fine->fine_date->format('Y-m-d') : '') }}"
                                required>
                         @error('fine_date')
                             <span class="invalid-feedback">{{ $message }}</span>
@@ -97,9 +99,9 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="sector" class="form-label">Sector</label>
-                        <input type="text" class="form-control @error('sector') is-invalid @enderror"
+                           <input type="text" class="form-control @error('sector') is-invalid @enderror"
                                id="sector" name="sector"
-                               value="{{ old('sector', $fine->sector ?? '') }}">
+                               value="{{ old('sector', isset($fine) ? $fine->sector : '') }}">
                         @error('sector')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
@@ -107,9 +109,9 @@
 
                     <div class="col-md-6 mb-3">
                         <label for="region" class="form-label">Region</label>
-                        <input type="text" class="form-control @error('region') is-invalid @enderror"
+                           <input type="text" class="form-control @error('region') is-invalid @enderror"
                                id="region" name="region"
-                               value="{{ old('region', $fine->region ?? '') }}">
+                               value="{{ old('region', isset($fine) ? $fine->region : '') }}">
                         @error('region')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
@@ -118,9 +120,9 @@
 
                 <div class="mb-3">
                     <label for="law" class="form-label">Law/Regulation</label>
-                    <input type="text" class="form-control @error('law') is-invalid @enderror"
-                           id="law" name="law"
-                           value="{{ old('law', $fine->law ?? '') }}">
+                          <input type="text" class="form-control @error('law') is-invalid @enderror"
+                              id="law" name="law"
+                              value="{{ old('law', isset($fine) ? $fine->law : '') }}">
                     @error('law')
                         <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
@@ -128,9 +130,9 @@
 
                 <div class="mb-3">
                     <label for="articles_breached" class="form-label">Articles Breached</label>
-                    <input type="text" class="form-control @error('articles_breached') is-invalid @enderror"
-                           id="articles_breached" name="articles_breached"
-                           value="{{ old('articles_breached', $fine->articles_breached ?? '') }}">
+                          <input type="text" class="form-control @error('articles_breached') is-invalid @enderror"
+                              id="articles_breached" name="articles_breached"
+                              value="{{ old('articles_breached', isset($fine) ? $fine->articles_breached : '') }}">
                     @error('articles_breached')
                         <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
@@ -138,9 +140,9 @@
 
                 <div class="mb-3">
                     <label for="violation_type" class="form-label">Violation Type</label>
-                    <input type="text" class="form-control @error('violation_type') is-invalid @enderror"
-                           id="violation_type" name="violation_type"
-                           value="{{ old('violation_type', $fine->violation_type ?? '') }}">
+                          <input type="text" class="form-control @error('violation_type') is-invalid @enderror"
+                              id="violation_type" name="violation_type"
+                              value="{{ old('violation_type', isset($fine) ? $fine->violation_type : '') }}">
                     @error('violation_type')
                         <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
@@ -150,7 +152,7 @@
                     <label for="summary" class="form-label">Summary *</label>
                     <textarea class="form-control @error('summary') is-invalid @enderror"
                               id="summary" name="summary" rows="5"
-                              required minlength="10" maxlength="5000">{{ old('summary', $fine->summary ?? '') }}</textarea>
+                              required minlength="10" maxlength="5000">{{ old('summary', isset($fine) ? $fine->summary : '') }}</textarea>
                     @error('summary')
                         <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
@@ -159,9 +161,9 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="badges" class="form-label">Badges (comma-separated)</label>
-                        <input type="text" class="form-control @error('badges') is-invalid @enderror"
+                           <input type="text" class="form-control @error('badges') is-invalid @enderror"
                                id="badges" name="badges"
-                               value="{{ old('badges', $fine->badges ?? '') }}"
+                               value="{{ old('badges', isset($fine) ? $fine->badges : '') }}"
                                placeholder="e.g., ai,gdpr,privacy">
                         @error('badges')
                             <span class="invalid-feedback">{{ $message }}</span>
@@ -170,9 +172,9 @@
 
                     <div class="col-md-6 mb-3">
                         <label for="link_to_case" class="form-label">Link to Case</label>
-                        <input type="url" class="form-control @error('link_to_case') is-invalid @enderror"
+                           <input type="url" class="form-control @error('link_to_case') is-invalid @enderror"
                                id="link_to_case" name="link_to_case"
-                               value="{{ old('link_to_case', $fine->link_to_case ?? '') }}">
+                               value="{{ old('link_to_case', isset($fine) ? $fine->link_to_case : '') }}">
                         @error('link_to_case')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
@@ -186,5 +188,6 @@
             </form>
         </div>
     </div>
+    </main>
 </div>
 @endsection

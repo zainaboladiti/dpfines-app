@@ -1,7 +1,9 @@
 @extends('layout')
 
 @section('content')
-<div class="container mt-4">
+<div class="admin-shell">
+    @include('admin._sidebar')
+    <main class="container-fluid mt-4">
     <div class="row mb-4">
         <div class="col-md-8">
             <h1>{{ $fine->organisation }}</h1>
@@ -87,5 +89,6 @@
             </div>
         </div>
     </div>
+    </main>
 </div>
 @endsection

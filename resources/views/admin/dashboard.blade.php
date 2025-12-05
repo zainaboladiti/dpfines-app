@@ -30,30 +30,7 @@
     @endif
 
     <div class="admin-shell">
-        <aside class="sidebar">
-            <div class="brand">
-                <img src="{{ asset('images/dpfines_logo.png') }}" alt="logo" style="width:36px;height:36px;border-radius:6px">
-                <h3>DPFines Admin</h3>
-            </div>
-
-            <div class="small-muted">Signed in as</div>
-            <div style="margin-bottom:.75rem;font-weight:600;color:#fff">{{ Auth::user()?->name }}</div>
-
-            <nav>
-                <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"><i class="fa-solid fa-house"></i> Dashboard</a>
-                <a href="{{ route('admin.fines.index') }}" class="nav-link {{ request()->routeIs('admin.fines.*') ? 'active' : '' }}"><i class="fa-solid fa-gavel"></i> Global Fines</a>
-                <a href="{{ route('admin.scraped-fines.index') }}" class="nav-link {{ request()->routeIs('admin.scraped-fines.*') ? 'active' : '' }}"><i class="fa-solid fa-file-import"></i> Scraped Fines</a>
-                <a href="{{ route('admin.fines.create') }}" class="nav-link"><i class="fa-solid fa-plus"></i> New Fine</a>
-                <a href="{{ route('admin.scraped-fines.index') }}?status=pending" class="nav-link"><i class="fa-solid fa-hourglass-half"></i> Pending Reviews</a>
-                <a href="{{ route('admin.verification.send') }}" class="nav-link"><i class="fa-solid fa-envelope"></i> Resend Verification</a>
-            </nav>
-
-            <div style="margin-top:1rem;border-top:1px solid rgba(255,255,255,0.04);padding-top:1rem">
-                <a href="{{ route('admin.logout') }}" onclick="event.preventDefault(); this.closest('form')?.submit();" class="nav-link"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>
-                <form action="{{ route('admin.logout') }}" method="POST" style="display:none">@csrf</form>
-            </div>
-        </aside>
-
+        @include('admin._sidebar')
         <main>
     <div class="metrics-grid mb-4">
         <a class="metric-link" href="{{ route('admin.fines.index') }}">
@@ -82,13 +59,13 @@
 
         <a class="metric-link" href="{{ route('admin.scraped-fines.index') }}?status=pending">
             <div class="metric-card">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <div class="small-muted">Pending Reviews</div>
-                    <div class="h3 mt-1 text-warning">{{ number_format($stats['pending_reviews']) }}</div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="small-muted">Pending Reviews</div>
+                        <div class="h3 mt-1 text-warning">{{ number_format($stats['pending_reviews']) }}</div>
+                    </div>
+                    <div class="avatar-sm"><i class="fa-solid fa-hourglass-half"></i></div>
                 </div>
-                <div class="avatar-sm"><i class="fa-solid fa-hourglass-half"></i></div>
-            </div>
             </div>
         </a>
 
