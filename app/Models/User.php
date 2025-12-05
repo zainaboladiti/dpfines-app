@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin',
     ];
 
     /**
@@ -34,15 +35,47 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
-     * @return array<string, string>
+     * @var array<string,string>
      */
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'last_login_at' => 'datetime',
+        'password' => 'hashed',
+        'is_admin' => 'boolean',
+    ];
+
+    /**
+     * Scope to get admin users only
+     */
+    public function scopeAdmins($query)
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $query->where('is_admin', true);
+    }
+
+    /**
+     * Check if user is admin
+     */
+    public function isAdmin(): bool
+    {
+        return $this->is_admin ;
+        // === true;
+    }
+
+    /**
+     * Relationship: Scraped fines submitted by user
+     */
+    public function scrapedFines()
+    {
+        return $this->hasMany(ScrapedFine::class, 'submitted_by');
+    }
+
+    /**
+     * Relationship: Fine reviews conducted by user
+     */
+    public function reviewedFines()
+    {
+        return $this->hasMany(ScrapedFine::class, 'reviewed_by');
     }
 }
