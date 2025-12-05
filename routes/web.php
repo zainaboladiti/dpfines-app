@@ -16,7 +16,7 @@ use App\Http\Controllers\Admin\ScrapedFineController;
 
 // Public routes
 // Generic login route used by auth middleware (redirects to admin login)
-Route::get('/login', function () { return redirect('/admin/login'); })->name('login');
+// Route::get('/login', function () { return redirect('/admin/login'); })->name('login');
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/index', [HomeController::class, 'index']);

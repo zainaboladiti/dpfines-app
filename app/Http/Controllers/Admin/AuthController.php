@@ -33,7 +33,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validated = $request->validate([
-            'email' => 'required|email:rfc,dns',
+            'email' => 'required|email',
             'password' => 'required|string|min:8',
         ]);
 
@@ -92,7 +92,7 @@ class AuthController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email:rfc,dns|unique:users,email',
+            'email' => 'required|email|unique:users,email',
             'password' => ['required', 'confirmed', Password::defaults()],
         ]);
 

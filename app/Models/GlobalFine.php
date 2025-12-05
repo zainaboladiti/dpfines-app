@@ -2,8 +2,11 @@
 
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 class GlobalFine extends Model
 {
+    use HasFactory;
+
     protected $table = 'global_fines';
     protected $fillable = [
         'organisation',
@@ -20,6 +23,8 @@ class GlobalFine extends Model
         'badges',
         'link_to_case'
     ];
+    use HasFactory;
+
     protected $casts = [
         'fine_date' => 'date',
         'fine_amount' => 'decimal:2'
